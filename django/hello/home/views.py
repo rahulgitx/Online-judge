@@ -2,7 +2,12 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("This is home page!")
+    context = {
+        'variable1':'Joe',
+        'variable2':'kelly'
+    }
+    return render(request, 'index.html', context)
+    # return HttpResponse("This is home page!")
 
 def about(request):
     return HttpResponse("This is about page!")
