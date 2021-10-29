@@ -18,6 +18,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls'))
+    path('', include('home.urls'), name="any")
     # path('about', include('home.ur'))
+    
 ]
+
+admin.site.site_header = "Online-judge Portal Admin"
+admin.site.site_title = "Online-judge Admin Portal"
+admin.site.index_title = "Welcome to Online-duge database Portal"
