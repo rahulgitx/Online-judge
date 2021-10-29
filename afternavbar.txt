@@ -1,0 +1,45 @@
+Created and made the navbar black.
+Did the migration thing with the /admin page and changed the text on it.    
+
+        ***Templates inheritance***
+- created a file base.html
+- copied all the context of index.html into it. (earlier html part and the navbar component of the bootstrap)
+- added title and body blocks to the base.html
+- extended the index.html page with the base.html. added the tile and body block content to it.
+- did the same with about, contacts and services.
+- modify the views.py file with the render function.
+
+  *** List template ***
+- go to bootstrap home page -> doc->components -> list group ->costum content. Copy the code.
+- in index.html, in body block add a div container. Inside it add the paste the template code. 
+- give margin with my-5 to the div container.
+- the first one is in blue color which will be the heading of the list.
+- The rest will be the questions of the list inside anchor <a>.
+- Change the text accordingly and add the hyperlink of the page you want it to forward to.
+- make container-fluid to extend it to the whole page.
+
+
+    *** working on the database ***
+    *creating form in contacts.html*
+
+- go to doc->form->layout->choose the second form. 
+- create a div container in contacts.html and paste the form. 
+- in the form<> add method = 'post' 
+- in mail, type='text', name='email', id='email', placeholder='type your email.'
+- in one of the class division use textarea and row = 3.
+- csrf token is used so that the data isn't sent by the user in any unethical way. It helps in receiving a new form every time of submission.
+- After this the submitted response will go to the contacts() in views now.
+
+- created a class contacts in models.py for the fields created above.
+class Contacts(models.Model):
+    email=models.CharField(max_length=122)
+    password=models.models.CharField(max_length=122)
+    name=models.CharField(max_length=12)
+    desc=models.models.TextField()
+    date=models.models.DateField()
+- for our table to be detected there are two things we'll need to do:
+    1. Register the table(class created) in admin.py
+    2. Add the name of the app(with the directory) in the settings.py file from home/apps.py file. e.g home.apps.HomeConfig
+- try detecting migrations with makemigrations.
+- now the changes made in the files have been recorded in one file.
+- to create table out of this information we need to run the migrate command.
