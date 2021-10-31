@@ -24,7 +24,7 @@ Did the migration thing with the /admin page and changed the text on it.
 
 - go to doc->form->layout->choose the second form. 
 - create a div container in contacts.html and paste the form. 
-- in the form<> add method = 'post' 
+- in the form<> add method = 'post' and type the action to be for /contacts 
 - in mail, type='text', name='email', id='email', placeholder='type your email.'
 - in one of the class division use textarea and row = 3.
 - csrf token is used so that the data isn't sent by the user in any unethical way. It helps in receiving a new form every time of submission.
@@ -37,9 +37,48 @@ class Contacts(models.Model):
     name=models.CharField(max_length=12)
     desc=models.models.TextField()
     date=models.models.DateField()
+- updated the contacts function in views.py
+def contacts(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        desc = request.POST.get('desc')
+        contact = Contacts(name = name, email = email, phone = phone, desc = desc, date = datetime.today())
+        contact.save()
+    return render(request, 'contacts.html')
 - for our table to be detected there are two things we'll need to do:
     1. Register the table(class created) in admin.py
     2. Add the name of the app(with the directory) in the settings.py file from home/apps.py file. e.g home.apps.HomeConfig
 - try detecting migrations with makemigrations.
 - now the changes made in the files have been recorded in one file.
 - to create table out of this information we need to run the migrate command.
+- now every entry we fill in the form is being saved in the database and can be checked by /admin page.
+- if we want our entries to appear with the person's name who filled it we'll have to add one more function to the class we created:
+class Contacts(models.Model):
+    email=models.CharField(max_length=122)
+    phone=models.CharField(max_length=122)
+    name=models.CharField(max_length=12)
+    desc=models.TextField()
+    date=models.DateField()
+
+    def __str__(self):
+        return self.name
+
+- in /admin you can update or add new entries.
+
+      **sql queries from shell**
+- from home.models import Contacts
+- Contacts.objects.all()
+- Contacts.objects.all()[0]
+- Contacts.objects.all().first()
+- Contacts.objects.all().last()
+
+- Contacts.objects.filter(name='amit', phone='23423')
+- Contacts.objects.filter(name='amit')[0]
+- Contacts.objects.filter(name='amit')[0].email
+- update:
+  inst = Contacts.objects.filter(name='amit')[0]
+  inst.phone = '999999'
+  inst.save()
+
