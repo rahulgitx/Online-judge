@@ -127,4 +127,4 @@ STATICFILES_DIRS = [
 
 **How to authenticate**
 - google: django auth ->homepage ->working with user objects
-- for authentication see the "Authenticating users" section.
+- for authentication see the "Authenticating users" section.    
