@@ -82,3 +82,49 @@ class Contacts(models.Model):
   inst.phone = '999999'
   inst.save()
 
+1/11/21
+   **** Authentication ****
+- starting with userproject
+- created app: python manage.py startapp home
+- imported include in url.py, ('', include(home.urls), name='any')
+- copied url.py files to /home/urls.py and removed the admin line.
+- imported views from home and added ('', home.views, name="any")
+- in view imported httpsresponse and render and created index functio returning httpsresponse("index page").email
+- added our apps name in settings.py (home.apps.HomeConfig)
+- created static and templates foler.
+- go to setting -> link before the static dir -> get code and paste it below it.
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+- copy the middle line and add in the templates dir.
+        'DIRS': [BASE_DIR / "templates",],
+- python makemigrations.
+- python migrate
+- created index.html file in templates and modified the index() with render().
+<!DOCTYPE html> 
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>welcome to the UserApp!</title>
+    </head>
+    <body>
+        This is the body of User App
+    </body>
+    </html>
+
+
+- created a super user with admin name and password redhat
+- logged in in /admin
+- created new user from there with name rahul and passwd redhat@123
+
+- copied the login page template from bootstrap's exmaples into login.html. Copy the modifications from harry's source code
+- <form class="form-signin" method="post" action="/login">
+- changed email to username, type='username'. changed password name="password".email
+- in views.login => return render(request, 'login.html')
+
+**How to authenticate**
+- google: django auth ->homepage ->working with user objects
+- for authentication see the "Authenticating users" section.
