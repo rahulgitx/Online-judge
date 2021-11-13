@@ -83,7 +83,7 @@ class Contacts(models.Model):
   inst.save()
 
 1/11/21
-   **** Authentication ****
+   **** Authentication ****         ------------------------->>>>>>>>>>>> look for JWT authentication
 - starting with userproject
 - created app: python manage.py startapp home
 - imported include in url.py, ('', include(home.urls), name='any')
@@ -128,3 +128,28 @@ STATICFILES_DIRS = [
 **How to authenticate**
 - google: django auth ->homepage ->working with user objects
 - for authentication see the "Authenticating users" section.    
+
+
+**** BACK AT HOSTEL ****
+- For just testing. Replaced the '' in urls.py/hello with '/home'. Now at 127.0.0.1:8000/home will be directed to the home app. 
+- Nothing changed in urls.py
+- in base.html, the href links were replaced with /home/contacts... etc.
+
+
+*** creating new app: problems ***
+- This part can be tricky if seen after long time.
+- Till now we were working on home app. All the requests were being directed to home app. ( all the '' requests).
+- Later it was changed to '/home'.
+- Now to manage the problem pages we created a new app separately for better management.
+- in hello.urls.py created a new path direction of all the '/problems' requests . 
+- in probems.urls.py created a path that will take the '/problems/problem1' requests to views.problem1 function.
+- created a function problem1 in views.py that would render the problem1.html template from the template folder.
+- the problem1.html template inherited the navbar from base.html and has a title and a body that says "this is body of problem1".   
+
+problem1.html modified 
+- After extending navbar from base.html and adding the title, create a div with class='container'. 
+- Copy the kadane problem from gfg.
+- create heading using h1 for 'Problem 1'. 
+- Copy and past the problems in proper format using paragraphs and break lines and bold texts.
+- Added a submit button in last that was copied from the sign in page that was made using the login page.
+

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Problem 1{% endblock title %}
+{% block body %}
+
+<div class="container">
+
+    <h1> Problem 1 </h1>
+
+    </br>
+    <p>
+        Given an array Arr[] of N integers. Find the contiguous sub-array(containing at least one number) which has the
+        maximum sum and return its sum.
+    </p>
+    <p>
+
+        <b>Example 1:</b>
+        </br>
+        Input: </br>
+        N = 5 </br>
+        Arr[] = {1,2,3,-2,5} </br>
+        Output: </br>
+        9 </br>
+        Explanation: </br>
+        Max subarray sum is 9 </br>
+        of elements (1, 2, 3, -2, 5) which </br>
+        is a contiguous subarray. </br>
+    </p>
+
+    <p>
+        <b>Example 2:</b> </br>
+
+        Input: </br>
+        N = 4 </br>
+        Arr[] = {-1,-2,-3,-4} </br>
+        Output: </br>
+        -1 </br>
+        Explanation: </br>
+        Max subarray sum is -1 </br>
+        of element (-1) </br>
+    </p>
+
+
+    <p>
+        <b>Your Task:</b>
+        Write a complete code to do so and submit.
+    </p>
+
+    <p>
+        Expected Time Complexity: O(N) </br>
+        Expected Auxiliary Space: O(1) </br>
+    </p>
+
+
+
+    <p>
+        <b>Constraints: </b>
+        1 ≤ N ≤ 106</br>
+        -107 ≤ A[i] ≤ 107</br>
+    </p>
+    <div class="col-12">
+        <a href="/problems/submitproblem1">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </a>
+    </div>
+    </br>
+</div>
+
+{% endblock body %}
