@@ -58,11 +58,19 @@
         1 ≤ N ≤ 106</br>
         -107 ≤ A[i] ≤ 107</br>
     </p>
-    <div class="col-12">
+
+    <form method = "post"  enctype="multipart/form-data">    {% comment %}  no need of action = "/problems/problem1" {% endcomment %}
+        {% csrf_token %}    
+        <input type="file" id="myFile" name="userfile">    </br>
+        <input type="submit">    
+    </form>    
+
+    {% comment %} <div class="col-12">
         <a href="/problems/submitproblem1">
             <button type="submit" class="btn btn-primary">Submit</button>
         </a>
-    </div>
+    </div> {% endcomment %}
+
     </br>
 </div>
 

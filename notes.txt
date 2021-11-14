@@ -130,6 +130,7 @@ STATICFILES_DIRS = [
 - for authentication see the "Authenticating users" section.    
 
 
+13 Nov
 **** BACK AT HOSTEL ****
 - For just testing. Replaced the '' in urls.py/hello with '/home'. Now at 127.0.0.1:8000/home will be directed to the home app. 
 - Nothing changed in urls.py
@@ -153,3 +154,18 @@ problem1.html modified
 - Copy and past the problems in proper format using paragraphs and break lines and bold texts.
 - Added a submit button in last that was copied from the sign in page that was made using the login page.
 
+14 Nov
+- added "" route to the hello/urls.py so now all the home, contacts, services pages can be accessed from '/' directly. However, after
+clicking on the web page options you will be directed to the urls with /home/ only.
+- 
+
+- in the form, added the enctype='multipart/form-data' and action='/problem1' can also be avoided
+- in views.py in the added:
+def problem1(request):
+    if(request.method == "POST"):
+        uploaded_file = request.FILES['userfile']
+        print(uploaded_file.name)
+        print(uploaded_file.size)
+        uploaded_file.read()
+    return render(request, 'problem1.html')
+- now the file can be uploaded and its name can be viewed in the debuggin terminal.
