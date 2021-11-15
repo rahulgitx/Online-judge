@@ -169,3 +169,25 @@ def problem1(request):
         uploaded_file.read()
     return render(request, 'problem1.html')
 - now the file can be uploaded and its name can be viewed in the debuggin terminal.
+
+15 Nov
+serving media files:
+- saving the uploaded files in our servers in called serving media files.
+- django is not a good framework for serving media files so apache or enginx is used for this purpose along with this. But for development 
+purpose we're using only django. It is recommended not to use this in production.
+- add 2 variables MEDIA_ROOT and MEDIA_URL in the settings.py. In Media root is the directory path that will store the file and media url 
+will show the file in the browser with this url path.
+MEDIA_ROOT = "D:/Algo university/Online judge/Online-judge/django/hello/media/"
+MEDIA_URL = '/media/'
+- additionally we have to add one more thing to the hello/urls.py to serve the media files(only for development or debuggin mode):
+#   from django.conf import settings
+    from django.conf.urls.static import static
+    if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+Handling uploaded files:
+from django.core.files.storage import FileSystemStorage
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+
+- now the files can be uploaded to the hello/media folder and can be accessed using the /localhosts/media/filename.ext 

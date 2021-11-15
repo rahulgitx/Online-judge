@@ -129,3 +129,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# adding the info for media root and url manually
+MEDIA_ROOT = "D:/Algo university/Online judge/Online-judge/django/hello/media/"
+MEDIA_URL = '/media/'
