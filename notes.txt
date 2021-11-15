@@ -191,3 +191,26 @@ from django.core.files.storage import FileSystemStorage
         fs.save(uploaded_file.name, uploaded_file)
 
 - now the files can be uploaded to the hello/media folder and can be accessed using the /localhosts/media/filename.ext 
+
+**cloned the git in redhat**
+- running : #subprocess.run('rm /onlinejudge/Online-judge/django/hello/media/*', shell=True) so that /media folder will only have the newly added file and the previous 
+file would be deleted.
+- added #uploaded_file.name = "newfile.cpp" which will add the name of every file uploaded to newfile.cpp
+- creating a separate function runcpp and calling it in our problem1 function to run the cpp file uploaded and printing the output in the terminal.
+- to run a cpp code in redhat we first have to downlaod the development tools, and then llvm-toolset.
+- then to run the cpp code we first have to create a .o file which is an intermediate file using # g++ -c file.cpp. 
+- Then we have to convert that into executable file using # g++ file.o -o file
+- then we run the executable file using #./file 
+- the runcpp() will run the commands with subprocess and they will be executed in /onlinejudge/Onlinejudge directory so the .o and executable file will be generated outside 
+/media folder.
+- .o and executable file will be generated multiple times so we remove them first using subprocess and then run the further command consecutively.
+def runcpp():
+    subprocess.run('rm newfile', shell=True)
+    subprocess.run('rm newfile.o', shell=True)
+    subprocess.run('g++ -c /onlinejudge/Online-judge/django/hello/media/newfile.cpp', shell=True)
+    subprocess.run('g++ newfile.o -o newfile', shell=True)
+    subprocess.run('./newfile', shell=True)
+    print()
+    print("g++ command ran successfully")
+
+- 

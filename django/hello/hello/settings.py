@@ -132,5 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # adding the info for media root and url manually
-MEDIA_ROOT = "D:/Algo university/Online judge/Online-judge/django/hello/media/"
+MEDIA_ROOT = "/onlinejudge/Online-judge/django/hello/media"
 MEDIA_URL = '/media/'
