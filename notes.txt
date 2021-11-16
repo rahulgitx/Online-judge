@@ -213,4 +213,8 @@ def runcpp():
     print()
     print("g++ command ran successfully")
 
-- 
+
+15 Nov
+- automating the prompt that was asked by our code with two inputs using the echo command.
+#subprocess.run('echo 5 4 | ./newfile > /onlinejudge/Online-judge/django/hello/media/outputfile.txt', shell=True)
+- created a code for kadane problem and ran it with two different test cases and stored the output in two different files.
