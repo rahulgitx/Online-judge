@@ -1,16 +1,20 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
+long long maxsubarraysum(int arr[], int n){
+	int currmax = 0, maxans = arr[0];
+	for(int i=0; i<n; i++){
+		maxans = arr[i];
+	}
+	return maxans;
+}
+
 int main(){
-	cout << "hello world new" << endl;
 	int n;
 	cin >> n;
+	int arr[n];
 	for(int i=0; i<n; i++){
-		cout << i << endl;
+		cin >> arr[i];
 	}
-	int t;
-	cin >> t;
-	for(int i=0; i<n; i++){
-		cout << "printing out t: " << t << endl
-	}
+	cout << maxsubarraysum(arr,n);
 }
