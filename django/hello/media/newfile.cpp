@@ -4,7 +4,8 @@ using namespace std;
 long long maxsubarraysum(int arr[], int n){
 	int currmax = 0, maxans = arr[0];
 	for(int i=0; i<n; i++){
-		maxans = arr[i];
+		currmax = max(arr[i], arr[i]+currmax);
+		maxans = max(currmax, maxans);
 	}
 	return maxans;
 }

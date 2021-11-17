@@ -218,3 +218,78 @@ def runcpp():
 - automating the prompt that was asked by our code with two inputs using the echo command.
 #subprocess.run('echo 5 4 | ./newfile > /onlinejudge/Online-judge/django/hello/media/outputfile.txt', shell=True)
 - created a code for kadane problem and ran it with two different test cases and stored the output in two different files.
+
+16 Nov
+- we were having the problem that if we upload a file with error, the error output will be shown in the debugging screen and ./newfile wouldn't be created and the python
+function would run without any error.
+- to counter this, every time the compilation takes place (g++ -c file.cpp), we would input the output in errorfile.txt with the help of error stream (2>) and store 
+the output of the subprocess command in one variable so we can check later if there was any error generated:
+    p = subprocess.run('g++ -c /onlinejudge/Online-judge/django/hello/media/newfile.cpp 2> /onlinejudge/Online-judge/django/hello/errorfile.txt', shell=True)
+- when there is no error nothing will be written on this file. 
+- next, the test cases would run on the ./newfile (wouldn't run if the file has errors and wouldn't hinder the python function). 
+- first, append "test case1: " in the outputfile.txt then append the output of the test cases with :
+    subprocess.run('echo -e "Output: \ntest case 1: " | cat > /onlinejudge/Online-judge/django/hello/compilationoutput.txt', shell=True)
+    subprocess.run('echo 5 1 2 3 -2 5 | ./newfile >> /onlinejudge/Online-judge/django/hello/compilationoutput.txt', shell=True)  #testcase 1
+- done similarly for the second test case. 
+- moved this file to static folder.
+- Now, to check if the answer is right we will compare it with answerproblem1.txt file in static folder. 
+- to do this we will use shell scripting:
+    if cmp --silent --  /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt /onlinejudge/Online-judge/django/hello/static/answerproblem1.txt 
+    then echo -e "\nTest cases passed Successfully!" >> /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt
+    else
+    echo -e "\nWrong Answer!" >> /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt
+    fi
+- now if the file had error in it the test cases wouldn't run already but the "test case 1:" heading was already appended so, we will check the variable p if had the 
+return code as non zero and in that case it would overwrite the output file with content in the errorfile and then append "compilation error!" to it. 
+- after this our function will be over and the pointer will be back to the problem1() and the next step is to redirect it to the outputfile.txt
+
+17 Nov Wed
+- tried to implemented the same things as previous days with docker.
+- created another function that would do this named rundockerproblem1(). 
+- it would first create a docker with gcc or custom image (centos) with name p1 in daemonised mode. : docker run -id --name p1 gcc
+- it will copy the .cpp folder from /media as newfile.cpp : docker cp /onlinejudge/Online-judge/django/hello/media/newfile.cpp p1:/newfile.cpp
+- it will copy the dockerscript.sh from /static 
+- it will copy the answerproblem1.txt from /static
+- it will execute the shell script dockerscript.sh which will:
+  - create errorfile.txt
+  - compile the newfile.cpp to newfile.o and output error stream into errorfile
+  - run the two test cases and stream the output in compilationoutput.txt 
+  - compare the output with answer file and append right or wrong accordingly. 
+  - if the errorfile is not empty (that means the test case 1 heading was included), it would overwrite with the error in it. 
+    #!/bin/bash
+
+    # touch compilationoutputfile.txt
+    touch errorfile.txt
+    g++ -c newfile.cpp 2> errorfile.txt
+    g++ newfile.o -o newfile
+
+    echo -e "Output: \ntest case 1: " | cat > compilationoutput.txt
+    echo 5 1 2 3 -2 5 | ./newfile >> compilationoutput.txt
+    echo -e "\ntest case 2:" | cat >> /compilationoutput.txt
+    echo 4 -1 -2 -3 -4 | ./newfile >> /compilationoutput.txt
+
+    if cmp --silent --  compilationoutput.txt answerproblem1.txt 
+    then echo -e "\nTest cases passed Successfully!" >> compilationoutput.txt
+    else
+    echo -e "\nWrong Answer!" >> compilationoutput.txt
+    fi
+
+    if [ -s errorfile.txt ]
+    then
+    cp errorfile.txt compilationoutput.txt  #non empty
+    echo Compilation error! | cat >> compilationoutput.txt
+    fi
+- this compilationoutput.txt will be then copied from container to the static/outputproblem1.txt 
+- docker p1 will be stopped. 
+- docker p1 will be removed. 
+def rundockerproblem1():
+    # subprocess.run('rm /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt', shell=True)
+    subprocess.run('docker run -id --name p1 gcc', shell=True)
+    subprocess.run('docker cp /onlinejudge/Online-judge/django/hello/media/newfile.cpp p1:/newfile.cpp', shell=True)
+    subprocess.run('docker cp /onlinejudge/Online-judge/django/hello/static/dockerscript.sh p1:/dockerscript.sh', shell=True)
+    subprocess.run('docker cp /onlinejudge/Online-judge/django/hello/static/answerproblem1.txt p1:/answerproblem1.txt', shell=True)
+    subprocess.run('docker exec p1 ./dockerscript.sh', shell=True)
+    subprocess.run('docker cp p1:/compilationoutput.txt /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt', shell=True)
+    subprocess.run('docker stop p1', shell=True)
+    subprocess.run('docker rm p1', shell=True)
+

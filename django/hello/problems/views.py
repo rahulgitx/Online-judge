@@ -2,6 +2,19 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.core.files.storage import FileSystemStorage
 import subprocess
 
+def rundockerproblem1():
+    # subprocess.run('rm /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt', shell=True)
+    subprocess.run('docker run -id --name p1 gcc', shell=True)
+    subprocess.run('docker cp /onlinejudge/Online-judge/django/hello/media/newfile.cpp p1:/newfile.cpp', shell=True)
+    subprocess.run('docker cp /onlinejudge/Online-judge/django/hello/static/dockerscript.sh p1:/dockerscript.sh', shell=True)
+    subprocess.run('docker cp /onlinejudge/Online-judge/django/hello/static/answerproblem1.txt p1:/answerproblem1.txt', shell=True)
+    subprocess.run('docker exec p1 ./dockerscript.sh', shell=True)
+    subprocess.run('docker cp p1:/compilationoutput.txt /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt', shell=True)
+    subprocess.run('docker stop p1', shell=True)
+    subprocess.run('docker rm p1', shell=True)
+    
+    
+
 def runcppproblem1():
     subprocess.run('rm newfile', shell=True)
     subprocess.run('rm newfile.o', shell=True)
@@ -52,7 +65,8 @@ def problem1(request):
         uploaded_file.name = "newfile.cpp"                       # changing the name of the incoming file
         # print(uploaded_file.name," ", uploaded_file)
         fs.save(uploaded_file.name, uploaded_file)
-        runcppproblem1()
+        # runcppproblem1()
+        rundockerproblem1()
         response = redirect('/static/outputproblem1.txt')
         return response
     return render(request, 'problem1.html')

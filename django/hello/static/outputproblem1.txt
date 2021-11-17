@@ -1,6 +1,6 @@
 Output: 
 test case 1: 
-5
+9
 test case 2:
--4
-Wrong Answer!
+-1
+Test cases passed Successfully!
