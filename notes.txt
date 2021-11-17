@@ -292,4 +292,4 @@ def rundockerproblem1():
     subprocess.run('docker cp p1:/compilationoutput.txt /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt', shell=True)
     subprocess.run('docker stop p1', shell=True)
     subprocess.run('docker rm p1', shell=True)
-
+- the outputproblem1.txt file is created successfully but the page ins't being directed to it after the execution.
