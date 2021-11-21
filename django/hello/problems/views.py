@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from django.core.files.storage import FileSystemStorage
 import subprocess
@@ -12,6 +13,7 @@ def rundockerproblem1():
     subprocess.run('docker cp p1:/compilationoutput.txt /onlinejudge/Online-judge/django/hello/static/outputproblem1.txt', shell=True)
     subprocess.run('docker stop p1', shell=True)
     subprocess.run('docker rm p1', shell=True)
+    return  
     
     
 
@@ -67,8 +69,11 @@ def problem1(request):
         fs.save(uploaded_file.name, uploaded_file)
         # runcppproblem1()
         rundockerproblem1()
-        response = redirect('/static/outputproblem1.txt')
-        return response
+        print("back from docker ")
+        # response = redirect('/static/outputproblem1.txt')
+        # response = redirect('/static/answerproblem1.txt')
+        # return response
+        return HttpResponseRedirect('/static/outputproblem1.txt')
     return render(request, 'problem1.html')
 
 def submitproblem1(request):

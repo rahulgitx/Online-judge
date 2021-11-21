@@ -293,3 +293,26 @@ def rundockerproblem1():
     subprocess.run('docker stop p1', shell=True)
     subprocess.run('docker rm p1', shell=True)
 - the outputproblem1.txt file is created successfully but the page ins't being directed to it after the execution.
+
+21 Nov
+- The command timeout is used to stop another command with specific time limit.
+#timeout 1 sleep 4 will stop the sleep command after 1 second.
+- We can give command to timeout that let the command run for n seconds and if doesn't terminate in that time period, kill it in m seconds.
+#timeout m n sleep 5
+- We can use this to our while loop but we have to move echo command before this because using it later will stop the echo command only:
+#timeout -k 1 1 echo 1 | ./tle              --> this will terminate only the echo command. 
+- so we use: echo 1 | timeout -k 1 1  ./tle 
+- if the process is terminated before it is killed it will return 0 otherwise it will return a non zero. so we can get this return code from echo $?
+- using these informations in our code: 
+echo 4 -1 -2 -3 -4 | timeout -k 1 1 ./newfile >> /compilationoutput.txt
+
+if [ $? -ne 0 ]
+# then echo Time Limit Exceeded!! | cat > compilationoutput.txt
+then x=0                     #stored this for later
+else x=1 
+fi
+
+- The "wrong answer" will work after this so to overwrite that we will use:
+if [ $x == 0 ]
+then echo Time Limit Exceeded!! | cat > compilationoutput.txt               #will append over the last wrong answer.
+fi

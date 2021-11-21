@@ -1,21 +1,11 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-
-long long maxsubarraysum(int arr[], int n){
-	int currmax = 0, maxans = arr[0];
-	for(int i=0; i<n; i++){
-		currmax = max(arr[i], arr[i]+currmax);
-		maxans = max(currmax, maxans);
-	}
-	return maxans;
-}
 
 int main(){
 	int n;
 	cin >> n;
-	int arr[n];
-	for(int i=0; i<n; i++){
-		cin >> arr[i];
+	while(true){
+		 n++;
 	}
-	cout << maxsubarraysum(arr,n);
+	cout << "done" << endl;
 }
