@@ -1,6 +1,7 @@
 from datetime import datetime
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contacts
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):
@@ -29,3 +30,25 @@ def contacts(request):
         contact.save()
     return render(request, 'contacts.html')
     # return HttpResponse("This is contacts page")
+
+
+def index(request):
+    return render(request, 'index.html')
+
+def loginuser(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username, password)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            #authenticate
+            login(request, user)
+            return redirect('/home')
+        else:
+            return render(request, 'login.html')
+    return render(request, 'login.html')
+
+def logoutuser(request):
+    logout(request)
+    return render(request, 'index.html')

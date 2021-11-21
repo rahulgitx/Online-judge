@@ -89,8 +89,8 @@ class Contacts(models.Model):
 - imported include in url.py, ('', include(home.urls), name='any')
 - copied url.py files to /home/urls.py and removed the admin line.
 - imported views from home and added ('', home.views, name="any")
-- in view imported httpsresponse and render and created index functio returning httpsresponse("index page").email
-- added our apps name in settings.py (home.apps.HomeConfig)
+- in view imported httpsresponse and render and created index functio returning httpsresponse("index page"). 
+- added our apps name in settings.py (home.apps.HomeConfig) 
 - created static and templates foler.
 - go to setting -> link before the static dir -> get code and paste it below it.
 STATICFILES_DIRS = [
@@ -99,8 +99,8 @@ STATICFILES_DIRS = [
 ]
 - copy the middle line and add in the templates dir.
         'DIRS': [BASE_DIR / "templates",],
-- python makemigrations.
-- python migrate
+- python manage.py makemigrations.
+- python manage.py migrate
 - created index.html file in templates and modified the index() with render().
 <!DOCTYPE html> 
     <html lang="en">
@@ -116,7 +116,7 @@ STATICFILES_DIRS = [
     </html>
 
 
-- created a super user with admin name and password redhat
+- created a super user with admin name and password redhat: python3 manage.py createsuperuser
 - logged in in /admin
 - created new user from there with name rahul and passwd redhat@123
 
@@ -316,3 +316,29 @@ fi
 if [ $x == 0 ]
 then echo Time Limit Exceeded!! | cat > compilationoutput.txt               #will append over the last wrong answer.
 fi
+
+** Added the authentication **
+- took the help of user program.
+- super user was created already and the migrations were also done. 
+- Created login.html page in templates and copied the login content from userproject (the css stuff and form).
+- Replaced the search button in navar with login with anchor. (modified the button as same as the login button) and redirected it to home/logintuser.
+- the loginuser button will take you to the login page, log you in in background and redirects you to index.html. Logout button logs you out and redirects you to index.html. 
+- in home/urls.py added to lines to redirect the requests for loginuser and logoutuser and redirected them to loginuser and logoutuser in home/views.py
+- in views.py copied the login and logout user functions (no need to change any redirection here as "/" will automatically redirect to /home/ which is our front page).
+- and added from django.contrib.auth import authenticate, login, logout to the page. 
+- in base.html added the line : Logged in as :   {{request.user}} inside a container. 
+- now modifying the login page.
+- extended the navbar. 
+- removed the original header. 
+- added title block. 
+- put the whole form inside a div, center aligned it with #<div class="d-flex justify-content-center"> and added the div inside the body block of base.html. 
+- changed the image in the form with an internet image. 
+
+
+*Re-organised the problem1 function and files*
+- renamed the views/problem1() to problem1func() and updated in problems/urls.py. 
+- created a folder problems/problem1. 
+- created problem1.py and added the dockerrun() and runcppproblem() in it. 
+- copied the dockerscript.sh file in same folder and updated the path in dockerrun(). 
+- copied the answerproblem1.txt into same folder and updated path in dokerrun().
+- Now for every new problem.. the uploaded file will be accessed from same folder i.e /media and the output will be redirected to same file i.e judge/django/hello/static/outputproblem.txt

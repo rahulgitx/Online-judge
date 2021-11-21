@@ -81,13 +81,16 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    {% comment %} <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> {% endcomment %}
+                    <button class="btn btn-outline-success" type="submit"><a class="navbar-brand" href="/home/loginuser">Login</a></button>
+                    <button class="btn btn-outline-success" type="submit"><a class="navbar-brand" href="/home/logoutuser">Logout</a></button>
                 </form>
             </div>
         </div>
     </nav>
-
+    <div class="container my-5">
+    Logged in as :   {{request.user}}
+    </div>
     {% block body %}{% endblock body %}
 
 
