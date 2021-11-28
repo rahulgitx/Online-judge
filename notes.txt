@@ -342,3 +342,15 @@ fi
 - copied the dockerscript.sh file in same folder and updated the path in dockerrun(). 
 - copied the answerproblem1.txt into same folder and updated path in dokerrun().
 - Now for every new problem.. the uploaded file will be accessed from same folder i.e /media and the output will be redirected to same file i.e judge/django/hello/static/outputproblem.txt
+
+***Deploying on aws***
+- created new account-> created ec2 instance with redhat image and 10 storage-> downloaded mykey(1).pem->converted to .ppk using puttygen.exe
+- accessed the instance using putty. 
+- downloaded django using pip3
+- downloaded docker using yum
+- downloaded gcc image (gives an option to select the repo->choose docker.io )
+- permission denied for removing new file in /media. changed it with "sudo remove -f". 
+- add "ip address" in ALLOWED_HOSTS in settings.py in hello 
+- also add dns in similar way.
+- to keep the django server running even when the putty session runs out use "python3 manage.py runserver 0:8000 &".
+- to stop the running server from background use: "pkill -f runserver"
