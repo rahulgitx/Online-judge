@@ -11,7 +11,7 @@ def problem1func(request):
         # print(uploaded_file.name)
         # print(uploaded_file.size)
         # uploaded_file.read()
-        subprocess.run('rm /onlinejudge/Online-judge/django/hello/media/*', shell=True)
+        subprocess.run('sudo rm -f /onlinejudge/Online-judge/django/hello/media/*', shell=True)
         fs = FileSystemStorage()
         uploaded_file.name = "newfile.cpp"                       # changing the name of the incoming file
         # print(uploaded_file.name," ", uploaded_file)
